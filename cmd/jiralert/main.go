@@ -23,12 +23,12 @@ import (
 	"strconv"
 
 	"github.com/andygrunwald/go-jira"
+	"github.com/barmettlerl/jiralert/pkg/alertmanager"
+	"github.com/barmettlerl/jiralert/pkg/config"
+	"github.com/barmettlerl/jiralert/pkg/notify"
+	"github.com/barmettlerl/jiralert/pkg/template"
 	"github.com/go-kit/log"
 	"github.com/go-kit/log/level"
-	"github.com/prometheus-community/jiralert/pkg/alertmanager"
-	"github.com/prometheus-community/jiralert/pkg/config"
-	"github.com/prometheus-community/jiralert/pkg/notify"
-	"github.com/prometheus-community/jiralert/pkg/template"
 
 	_ "net/http/pprof"
 

@@ -18,11 +18,11 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/prometheus-community/jiralert/pkg/config"
+	"github.com/barmettlerl/jiralert/pkg/config"
 )
 
 const (
-	docsURL   = "https://github.com/prometheus-community/jiralert#readme"
+	docsURL   = "https://github.com/barmettlerl/jiralert#readme"
 	templates = `
     {{ define "page" -}}
       <html>
