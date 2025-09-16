@@ -32,7 +32,7 @@ import (
 	"github.com/trivago/tgo/tcontainer"
 )
 
-// TODO(bwplotka): Consider renaming this package to ticketer.
+// TODO(bwplotka): Consider renaming this package to ticketer
 
 type jiraIssueService interface {
 	SearchV2JQL(jql string, options *jira.SearchOptionsV2) ([]jira.Issue, *jira.Response, error)
