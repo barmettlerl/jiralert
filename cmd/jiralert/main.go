@@ -71,7 +71,7 @@ func main() {
 
 	if !*hashJiraLabel {
 		level.Warn(logger).Log("msg", "Using deprecated jira label generation - "+
-			"please read https://github.com/prometheus-community/jiralert/pull/79 "+
+			"please read https://github.com/barmettlerl/jiralert/pull/79 "+
 			"and try -hash-jira-label")
 	}
 
