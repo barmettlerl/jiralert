@@ -85,6 +85,7 @@ func (r *Receiver) Notify(data *alertmanager.Data, hashJiraLabel bool, updateSum
 	if err != nil {
 		return false, errors.Wrap(err, "generate priority from template")
 	}
+	issuePriority = strings.TrimSpace(issuePriority)
 
 	issueDesc, err := r.tmpl.Execute(r.conf.Description, data)
 	if err != nil {
@@ -141,7 +142,9 @@ func (r *Receiver) Notify(data *alertmanager.Data, hashJiraLabel bool, updateSum
 		}
 
 		if updatePriority && issue.Fields.Priority != nil {
-			if issue.Fields.Priority.Name != issuePriority {
+			if issuePriority == "" { // do not attempt update with empty value
+				level.Debug(r.logger).Log("msg", "skipping priority update: empty priority after templating", "key", issue.Key)
+			} else if issue.Fields.Priority.Name != issuePriority {
 				level.Debug(r.logger).Log("msg", "updating priority", "key", issue.Key, "new_priority", issuePriority)
 				retry, err := r.updatePriority(issue.Key, issuePriority)
 				if err != nil {
@@ -214,8 +217,12 @@ func (r *Receiver) Notify(data *alertmanager.Data, hashJiraLabel bool, updateSum
 		if err != nil {
 			return false, errors.Wrap(err, "render issue priority")
 		}
-
-		issue.Fields.Priority = &jira.Priority{Name: issuePrio}
+		issuePrio = strings.TrimSpace(issuePrio)
+		if issuePrio != "" { // only set when non-empty
+			issue.Fields.Priority = &jira.Priority{Name: issuePrio}
+		} else {
+			level.Debug(r.logger).Log("msg", "omitting empty priority on create")
+		}
 	}
 
 	if len(r.conf.Components) > 0 {
