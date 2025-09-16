@@ -1,11 +1,11 @@
 go:
-    version: 1.14
+    version: 1.23
 repository:
     path: github.com/prometheus-community/jiralert
 build:
     binaries:
         - name: jiralert
-          path: cmd/jiralert 
+          path: cmd/jiralert
     flags: -a -tags netgo
 crossbuild:
     platforms:
